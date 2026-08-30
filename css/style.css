@@ -1,0 +1,815 @@
+/* ==========================================================================
+   CHELÓNA — Design System
+   ========================================================================== */
+
+:root{
+  --cream:        #FBF6EB;
+  --cream-deep:   #F4EAD4;
+  --paper:        #FFFFFF;
+  --ink:          #17140F;
+  --ink-soft:     #57524A;
+  --ink-faint:    #948E82;
+  --line:         rgba(23,20,15,0.12);
+  --line-strong:  rgba(23,20,15,0.22);
+  --yellow:       #F1D670;
+  --yellow-soft:  #F8E9AE;
+
+  /* per-product accents */
+  --c-krinos:        #C4636E;
+  --c-apotypomata:   #35507E;
+  --c-thalassa:      #1E3A5F;
+  --c-lorida:        #3F5B2E;
+  --c-krinossoup:    #C07E93;
+  --c-pitachagia:    #B24C5C;
+  --c-koukkida:      #C97A96;
+  --c-lemoni:        #4B6B34;
+  --c-limni:         #2E7A5F;
+
+  --radius-s: 10px;
+  --radius-m: 18px;
+  --radius-l: 28px;
+
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --dur-s: 250ms;
+  --dur-m: 480ms;
+  --dur-l: 650ms;
+
+  --container: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{ color-scheme: light; }
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; overflow-x: hidden; }
+html, body{ margin:0; padding:0; }
+
+body{
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,h2,h3,h4{
+  font-family: "Poppins", "Inter", -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--ink);
+}
+
+p{ margin: 0; }
+a{ color: inherit; text-decoration: none; }
+img{ max-width: 100%; display:block; }
+button{ font-family: inherit; cursor: pointer; }
+
+.container{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.eyebrow{
+  display:inline-block;
+  font-family:"Poppins", sans-serif;
+  font-weight:700;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+.skip-link{
+  position:absolute; left: 12px; top:-60px;
+  background: var(--ink); color:#fff; padding:10px 16px; border-radius: 999px;
+  z-index: 1000; transition: top var(--dur-s) var(--ease);
+  font-size: 0.85rem;
+}
+.skip-link:focus{ top: 12px; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding: 15px 34px;
+  border-radius: 999px;
+  font-family:"Poppins", sans-serif;
+  font-weight:600;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  transition: background var(--dur-s) var(--ease), color var(--dur-s) var(--ease), transform var(--dur-s) var(--ease), box-shadow var(--dur-s) var(--ease);
+  white-space: nowrap;
+}
+.btn:hover{ background: var(--ink); color: var(--cream); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(23,20,15,0.18); }
+.btn:active{ transform: translateY(0); }
+.btn-solid{ background: var(--ink); color: var(--cream); }
+.btn-solid:hover{ background: var(--ink-soft); color:#fff; }
+.btn-light{ border-color: rgba(255,255,255,0.65); color:#fff; }
+.btn-light:hover{ background:#fff; color: var(--ink); }
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 22px var(--gutter);
+  background: rgba(251,246,235,0.78);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-s) var(--ease), background var(--dur-s) var(--ease);
+}
+.site-header.is-scrolled{ border-bottom-color: var(--line); }
+
+.logo{
+  font-family:"Poppins", sans-serif;
+  font-weight:800;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+}
+
+.nav{
+  display:flex;
+  gap: clamp(18px, 3vw, 40px);
+  font-family:"Poppins", sans-serif;
+  font-weight:600;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.nav a{
+  position:relative;
+  padding-bottom: 4px;
+}
+.nav a::after{
+  content:"";
+  position:absolute; left:0; right:100%; bottom:0;
+  height:2px; background: var(--ink);
+  transition: right var(--dur-s) var(--ease);
+}
+.nav a:hover::after, .nav a.is-active::after{ right:0; }
+
+@media (max-width: 480px){
+  .site-header{ padding: 16px 18px; }
+  .logo{ font-size: 1.05rem; }
+  .nav{ gap: 10px; font-size: 0.6rem; letter-spacing: 0.06em; }
+}
+
+/* ==========================================================================
+   Hero (home) — split two-image composition with centred copy. No animation.
+   ========================================================================== */
+.hero{
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  max-height: 1100px;
+  overflow: hidden;
+  background: var(--ink);
+  isolation: isolate;
+}
+
+/* Two portrait images side by side, each filling half the frame. */
+.hero-split{
+  position:absolute; inset:0; z-index:0;
+  display:grid; grid-template-columns: 1fr 1fr;
+}
+.hero-half{
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  display:block;
+  -webkit-user-drag:none; user-select:none;
+}
+
+/* Legibility wash — darkens the centre band behind the copy while keeping
+   the two images visible toward the edges. */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(23, 20, 15, 0.2);
+}
+
+.hero-inner{
+  position:absolute; inset:0; z-index:2;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 0 var(--gutter);
+}
+
+.hero-copy{ position:relative; max-width: 900px; }
+.hero-copy h1{
+  color: var(--cream);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.04;
+  max-width: 25ch;
+  margin: 0 auto;
+  font-weight: 300;
+  font-family: "Unbounded", sans-serif;
+}
+.hero-copy .sub{
+  margin: 20px auto 0;
+  font-family:"Poppins", sans-serif;
+  font-weight:400;
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  max-width: 32ch;
+}
+.hero-actions{ margin-top: 36px; display:flex; align-items:center; justify-content:center; gap: 22px; }
+.btn-hero{ border-color: var(--cream); color:var(--cream); background: transparent; }
+.btn-hero:hover{ background:var(--cream); color: var(--ink); border-color:var(--cream); }
+
+.hero-copy h1,
+.hero-copy .sub,
+.hero-actions{
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroReveal .9s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.hero-copy .sub{
+  animation-delay: .2s;
+}
+
+.hero-actions{
+  animation-delay: .35s;
+}
+
+@keyframes heroReveal{
+  from{
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px){
+  .hero-copy h1{ max-width: 25ch; }
+  .hero{ height: 70svh; min-height: 520px; max-height: none; }
+}
+
+/* Tablet / phones: keep the split; scale the copy down. */
+@media (max-width: 640px){
+  .hero{ height: 60svh; min-height: 520px; max-height: none; }
+  .hero-split{ display: block; }
+  .hero-half:first-child{ display: none; }
+  .hero-half:last-child{ width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .hero-inner{ position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 40px 22px 36px; }
+  .hero-copy{ display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; }
+  .hero-copy h1{margin: 0; margin-top: 20px; max-width: 15ch; text-align: center; font-size: clamp(2rem, 8vw, 3rem); line-height: .95; font-weight: 400; letter-spacing: -.04em; }
+  .hero-copy .sub{ margin: auto 0 18px; text-align: center; max-width: 28ch; font-size: .82rem; letter-spacing: .16em; }
+  .hero-actions{ justify-content: center; margin: 0; }
+  .btn-hero{ padding: 13px 28px; font-size: 0.56rem; font-weight: 700; }
+}
+@media (max-width: 380px){
+  .hero-copy h1{ font-size: 1.8rem; max-width: 11ch; }
+  .hero-copy .sub{ font-size: 0.68rem; }
+}
+
+/* ==========================================================================
+   Products grid
+   ========================================================================== */
+.section{ padding: clamp(70px, 10vw, 130px) 0; }
+@media (max-width: 1024px){ .section{ padding: clamp(56px, 7vw, 90px) 0; } }
+@media (max-width: 640px){ .section{ padding: 48px 0; } }
+.section-head{ margin-bottom: 48px; }
+@media (max-width: 640px){ .section-head{ margin-bottom: 28px; } }
+
+.grid-products{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 34px);
+}
+@media (max-width: 980px){ .grid-products{ grid-template-columns: repeat(2,1fr); gap: clamp(14px, 2vw, 26px); } }
+/* NOTE: the ≤640px card chrome (tag/price/body/more) lives just after the
+   base .card rules below, so it isn't overridden by them (equal specificity
+   resolves by source order). The 2-column grid + gutter live here because
+   their base rule is above. */
+@media (max-width: 640px){
+  #products.section > .container{ padding-left: 16px; padding-right: 16px; }
+  .grid-products{ grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+
+.card{
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  transition: transform var(--dur-m) var(--ease), box-shadow var(--dur-m) var(--ease), border-color var(--dur-m) var(--ease);
+}
+.card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px -20px rgba(23,20,15,0.28);
+  border-color: transparent;
+}
+
+.card-media{
+  position:relative;
+  aspect-ratio: 4 / 5;
+  overflow:hidden;
+  background: var(--cream-deep);
+}
+.card-media img{
+  width:100%; height:100%; object-fit: cover;
+  transition: transform var(--dur-l) var(--ease);
+}
+.card:hover .card-media img{ transform: scale(1.07); }
+
+.card-tag{
+  position:absolute; top:14px; left:14px;
+  font-family:"Poppins",sans-serif; font-weight:700;
+  font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 12px; border-radius: 999px;
+  background: rgba(255,255,255,0.88); color: var(--ink);
+  backdrop-filter: blur(6px);
+}
+.card-price{
+  position:absolute; top:14px; right:14px;
+  font-family:"Poppins",sans-serif; font-weight:700; font-size:0.82rem;
+  padding: 7px 13px; border-radius: 999px;
+  background: rgba(23,20,15,0.86); color:#fff;
+}
+
+.card-body{
+  padding: 22px 24px 26px;
+  display:flex; flex-direction:column; gap:10px; flex:1;
+}
+.card-body h3{ font-size: 1.32rem; }
+.card-body p{ color: var(--ink-soft); font-size: 0.92rem; line-height:1.5; flex:1; }
+
+.card-more{
+  margin-top: 6px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:"Poppins",sans-serif; font-weight:700;
+  font-size: 0.76rem; letter-spacing:0.14em; text-transform:uppercase;
+  color: var(--ink);
+  width: fit-content;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.card-more svg{ width:14px; height:14px; transition: transform var(--dur-s) var(--ease); }
+.card:hover .card-more svg{ transform: translateX(5px); }
+
+/* Mobile product cards — 2 per row, keeping the desktop card's premium
+   proportions (same 4/5 image, same tag top-left / price top-right
+   hierarchy) with the chrome gently scaled for the smaller canvas.
+   Placed AFTER the base card rules so these win at the mobile breakpoint. */
+@media (max-width: 640px){
+  .card{ border-radius: 16px; }
+  .card-body{ padding: 15px 15px 17px; gap: 8px; }
+  .card-body h3{ font-size: 1.08rem; }
+  .card-body p{ font-size: 0.82rem; line-height: 1.45; }
+  /* Price keeps the exact desktop position (top-right pill); the tag
+     keeps the top-left and is capped so the two never collide. */
+  .card-tag{
+    font-size: 0.55rem; letter-spacing: 0.08em; padding: 5px 9px; top: 10px; left: 10px;
+    max-width: calc(100% - 62px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .card-price{ font-size: 0.72rem; padding: 5px 10px; top: 10px; right: 10px; }
+  .card-more{ font-size: 0.7rem; gap: 6px; }
+}
+
+/* ==========================================================================
+   Value band (Price / Instagram / Workshop)
+   ========================================================================== */
+.value-band{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  min-height: 420px;
+}
+@media (max-width: 1024px){ .value-band{ min-height: 340px; } }
+@media (max-width: 780px){ .value-band{ grid-template-columns: 1fr; min-height:auto; } }
+@media (max-width: 640px){ .value-panel{ min-height: 220px; } }
+
+.value-panel{
+  position:relative;
+  min-height: 300px;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  isolation:isolate;
+}
+.value-panel img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  transition: transform var(--dur-l) var(--ease);
+  z-index:-2;
+}
+.value-panel::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(10,8,5,0.62) 100%);
+  z-index:-1;
+}
+.value-panel:hover img{ transform: scale(1.06); }
+.value-panel .vp-inner{ padding: 30px 34px; color:#fff; width:100%; }
+.value-panel .vp-label{
+  writing-mode: vertical-rl;
+  position:absolute; top:28px; left:26px;
+  font-family:"Poppins",sans-serif; font-weight:700;
+  font-size: 0.85rem; letter-spacing: 0.3em; text-transform:uppercase;
+  color:#fff;
+}
+.value-panel h4{ color:#fff; font-size:1.4rem; margin-bottom:6px; }
+.value-panel p{ color: rgba(255,255,255,0.82); font-size:0.88rem; max-width: 30ch; }
+
+@media (max-width: 640px){
+  .value-panel .vp-inner{ padding: 20px 22px; }
+  .value-panel .vp-label{ top:16px; left:16px; font-size:0.72rem; letter-spacing:0.22em; }
+  .value-panel h4{ font-size:1.16rem; }
+  .value-panel p{ font-size:0.84rem; max-width: 26ch; }
+}
+
+/* ==========================================================================
+   Storytelling (alternating)
+   ========================================================================== */
+.story-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items:center;
+}
+.story-row + .story-row{ margin-top: clamp(60px, 9vw, 120px); }
+.story-row.reverse .story-media{ order: 2; }
+.story-media{
+  border-radius: var(--radius-l);
+  overflow:hidden;
+  aspect-ratio: 6/5;
+}
+.story-media img{ width:100%; height:100%; object-fit:cover; }
+.story-copy .kicker{ color: var(--ink-faint); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; font-family:"Poppins",sans-serif;}
+.story-copy h3{ font-size: clamp(1.7rem, 3vw, 2.4rem); margin-top:14px; }
+.story-copy p{ margin-top:18px; color: var(--ink-soft); font-size:1.02rem; max-width: 46ch; }
+
+/* Mobile / tablet: keep the desktop side-by-side composition — a small
+   image on one side, text on the other — rather than a tall stacked
+   layout. The left/right alternation (.reverse) is intentionally kept. */
+@media (max-width: 820px){
+  .story-row{ grid-template-columns: 0.9fr 1.1fr; gap: clamp(18px, 3.5vw, 34px); align-items: center; }
+}
+@media (max-width: 640px){
+  .story-row{ gap: 16px; }
+  .story-row + .story-row{ margin-top: 34px; }
+  .story-media{ aspect-ratio: 4/5; border-radius: var(--radius-m); }
+  .story-copy .kicker{ font-size: 0.64rem; letter-spacing: 0.14em; }
+  .story-copy h3{ font-size: 1.3rem; margin-top: 8px; line-height: 1.14; }
+  .story-copy p{ margin-top: 10px; font-size: 0.86rem; line-height: 1.5; }
+}
+@media (max-width: 380px){
+  .story-copy h3{ font-size: 1.16rem; }
+  .story-copy p{ font-size: 0.82rem; }
+}
+
+/* ==========================================================================
+   About — matches source layout: heading+image left column,
+   tagline/paragraphs right column with second image inset lower-right
+   ========================================================================== */
+.about-grid{
+  display:grid;
+  grid-template-columns: 0.62fr 1.6fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items:start;
+}
+@media (max-width: 900px){ .about-grid{ grid-template-columns: 1fr; } }
+
+.about-col-left{ display:flex; flex-direction:column; gap:26px; }
+.about-media-a{ border-radius: var(--radius-m); overflow:hidden; aspect-ratio: 1/1; max-width: 300px; }
+.about-media-a img{ width:100%; height:100%; object-fit:cover; }
+
+.about-col-right .tagline{
+  text-align:right;
+  font-size:0.92rem; color: var(--ink-faint); font-style: italic;
+  margin-bottom: 30px;
+}
+.about-copy-block::after{ content:""; display:block; clear:both; }
+.about-media-b{
+  float:right;
+  width: 40%;
+  margin: 6px 0 22px 30px;
+  border-radius: var(--radius-m); overflow:hidden; aspect-ratio: 4/5;
+}
+.about-media-b img{ width:100%; height:100%; object-fit:cover; }
+.about-copy-block p{ color: var(--ink-soft); margin-bottom: 18px; font-size:1.02rem; }
+.about-copy-block p:last-child{ margin-bottom:0; }
+
+@media (max-width: 900px){
+  .about-col-left{ flex-direction:row; align-items:flex-start; }
+  .about-media-a{ max-width: 180px; }
+  .about-col-right .tagline{ text-align:left; }
+  /* Keep the portrait floated (from the base rule) so the copy wraps
+     around it — same editorial composition as desktop, just smaller. */
+  .about-media-b{ width: 38%; max-width: 230px; margin: 4px 0 14px 24px; }
+}
+
+@media (max-width: 640px){
+  /* One compact, balanced block: heading + a small refined clay image on
+     top row, then the copy with a small portrait floated beside it so the
+     text wraps naturally instead of the image spanning the screen. */
+  .about-grid{ gap: 18px; }
+  .about-col-left{ gap: 14px; align-items: center; }
+  .about-media-a{ max-width: 116px; border-radius: var(--radius-s); }
+  .about-col-right .tagline{ font-size: 0.8rem; margin-bottom: 14px; }
+  .about-media-b{ width: 42%; max-width: 150px; margin: 4px 0 10px 16px; border-radius: var(--radius-s); }
+  .about-copy-block p{ font-size: 0.88rem; line-height: 1.55; margin-bottom: 12px; }
+}
+
+/* ==========================================================================
+   Final CTA
+   ========================================================================== */
+.cta{
+  position:relative;
+  overflow:hidden;
+  background: var(--ink);
+  color: var(--cream);
+  padding: clamp(80px,12vw,150px) var(--gutter);
+  text-align:center;
+  isolation:isolate;
+}
+.cta::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: var(--cta-bg);
+  background-size: cover; background-position:center;
+  opacity: 0.22;
+  z-index:-1;
+}
+.cta::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(23,20,15,0.2), rgba(23,20,15,0.92));
+  z-index:-1;
+}
+.cta h2{ color:#fff; font-size: clamp(2rem,4.6vw,3.4rem); max-width: 18ch; margin:0 auto; }
+.cta p{ color: rgba(255,255,255,0.72); max-width: 46ch; margin: 22px auto 40px; font-size:1.05rem; }
+
+@media (max-width: 640px){
+  .cta{ padding: 56px 20px; }
+  .cta h2{ max-width: 15ch; }
+  .cta p{ margin: 16px auto 30px; font-size: 0.95rem; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer{
+  position: relative;
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+  padding: clamp(44px, 6vw, 78px) 0 clamp(26px, 3vw, 42px);
+}
+.footer-inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Top row: subscribe prompt (left) + form (right) */
+.footer-subscribe{
+  display:flex; align-items:center;
+  gap: clamp(18px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.footer-subscribe-text{ flex: 0 0 auto; }
+.footer-subscribe-text h5{
+  margin: 0;
+  font-family:"Poppins",sans-serif; font-weight:800;
+  font-size: clamp(1.05rem, 2vw, 1.35rem); letter-spacing: 0.01em;
+}
+.footer-subscribe-text p{ color: var(--ink-soft); font-size: 0.92rem; margin: 4px 0 0; }
+
+.subscribe-form{ display:flex; gap:10px; flex: 1 1 420px; max-width: 640px; margin-left: auto; }
+.subscribe-form input{
+  flex:1; min-width: 0; border:1px solid var(--line-strong); border-radius: 999px;
+  padding: 13px 20px; font-family:"Inter",sans-serif; font-size:0.9rem; background:#fff;
+}
+.subscribe-form button{
+  border:none; border-radius:999px; padding: 13px 26px;
+  background: var(--ink); color:#fff; font-family:"Poppins",sans-serif;
+  font-weight:600; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;
+  white-space:nowrap; transition: background var(--dur-s) var(--ease);
+}
+.subscribe-form button:hover{ background: var(--ink-soft); }
+
+/* Divider */
+.footer-divider{ border:0; border-top:1px solid var(--line-strong); margin: clamp(26px,4vw,44px) 0 0; }
+
+/* Big brand wordmark */
+.footer-brand{ margin: clamp(30px,5vw,48px) 0 clamp(18px,3vw,32px); }
+.footer-brand .logo{
+  display:block;
+  font-family:"Poppins",sans-serif; font-weight:800;
+  font-size: clamp(3.2rem, 13vw, 9.5rem);
+  line-height: 0.86; letter-spacing: -0.02em; color: var(--ink);
+}
+
+/* Bottom row: link groups (Contact left, Social right) */
+.footer-bottom{
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap: clamp(24px, 5vw, 60px); flex-wrap: wrap;
+}
+.footer-bottom .footer-col:last-child{ text-align: right; }
+.footer-col h5{
+  font-family:"Poppins",sans-serif; font-weight:800; font-size:1rem;
+  letter-spacing:0.04em; margin:0 0 12px;
+}
+.footer-col p, .footer-col a{ display:block; font-size:0.92rem; color: var(--ink-soft); margin-bottom:6px; }
+.footer-col a:hover{ color: var(--ink); text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 780px){
+  .subscribe-form{ flex-basis: 100%; max-width: none; margin-left: 0; }
+}
+@media (max-width: 640px){
+  .footer{ padding: 34px 0 24px; }
+  .footer-subscribe{ gap: 12px; }
+  .footer-subscribe-text h5{ font-size: 1.08rem; }
+  .footer-brand{ margin: 28px 0 18px; }
+  .footer-brand .logo{ font-size: clamp(3rem, 22vw, 4.6rem); }
+  .footer-bottom{ gap: 18px; }
+  .footer-col h5{ font-size: 0.86rem; margin-bottom: 8px; }
+  .footer-col p, .footer-col a{ font-size: 0.84rem; margin-bottom: 4px; }
+}
+
+.legal-bar{
+  text-align:center; padding: 22px var(--gutter); font-size:0.78rem;
+  color: var(--ink-faint); background: var(--cream);
+}
+@media (max-width: 640px){ .legal-bar{ padding: 16px 20px; font-size: 0.72rem; } }
+
+/* ==========================================================================
+   Product overview page
+   ========================================================================== */
+.product-hero{
+  position:relative;
+  padding-top: 40px;
+  overflow:hidden;
+}
+.product-hero .backdrop{
+  position:absolute; inset:0; z-index:-2;
+  background-image: var(--pattern);
+  background-size: cover; background-position:center;
+  transform: scale(1.02);
+}
+.product-hero .backdrop::after{ content:""; }
+.product-hero .shade{
+  position:absolute; inset:0; z-index:-1;
+  background: linear-gradient(180deg, rgba(251,246,235,0.35) 0%, rgba(251,246,235,0.94) 88%);
+}
+
+.back-link{
+  position:relative; z-index:5;
+  display:inline-flex; align-items:center; gap:8px;
+  margin: 0 var(--gutter);
+  font-family:"Poppins",sans-serif; font-weight:600; font-size:0.8rem;
+  letter-spacing:0.08em; text-transform:uppercase;
+  padding: 10px 0;
+}
+.back-link svg{ width:16px; height:16px; }
+
+.product-hero-inner{
+  position:relative; z-index:2;
+  max-width: var(--container);
+  margin:0 auto;
+  padding: 30px var(--gutter) 70px;
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items:center;
+}
+.product-figure{
+  border-radius: var(--radius-l);
+  overflow:hidden;
+  background: var(--paper);
+  box-shadow: 0 40px 80px -30px rgba(23,20,15,0.35);
+}
+.product-figure img{ width:100%; height:100%; object-fit:cover; aspect-ratio: 1/1; }
+
+.product-info{ padding-top: 10px; }
+.product-info .kind{
+  font-family:"Poppins",sans-serif; font-weight:700; font-size:0.78rem;
+  letter-spacing:0.2em; text-transform:uppercase; color: var(--ink-soft);
+}
+.product-info h1{ font-size: clamp(2.4rem, 5vw, 3.8rem); margin-top:14px; }
+.product-info .price-row{
+  display:flex; align-items:center; gap:18px; margin-top:22px;
+  padding-top:22px; border-top:1.5px solid var(--line-strong);
+}
+.product-info .price{ font-family:"Poppins",sans-serif; font-weight:800; font-size:1.5rem; }
+
+/* Mobile / tablet: keep the product image and its information (incl. the
+   price) side-by-side — a smaller balanced image on the left, details on
+   the right — rather than a long vertical stack. */
+@media (max-width: 860px){
+  .product-hero-inner{ grid-template-columns: 0.92fr 1.08fr; gap: 26px; padding: 24px var(--gutter) 48px; }
+  .product-info h1{ font-size: clamp(1.7rem, 5.2vw, 2.4rem); }
+}
+@media (max-width: 640px){
+  .product-hero{ padding-top: 12px; }
+  .back-link{ font-size: 0.72rem; padding: 6px 0; }
+  .product-hero-inner{ gap: 16px; padding: 12px 20px 34px; }
+  .product-figure{ border-radius: var(--radius-m); }
+  .product-info{ padding-top: 2px; }
+  .product-info .kind{ font-size: 0.62rem; letter-spacing: 0.16em; }
+  .product-info h1{ font-size: clamp(1.35rem, 6.2vw, 1.85rem); margin-top: 6px; }
+  .product-info .price-row{ margin-top: 12px; padding-top: 12px; gap: 12px; }
+  .product-info .price{ font-size: 1.2rem; }
+}
+@media (max-width: 380px){
+  .product-info h1{ font-size: 1.3rem; }
+  .product-info .price{ font-size: 1.1rem; }
+}
+
+.product-detail{
+  padding: clamp(56px,8vw,100px) 0 clamp(70px,10vw,120px);
+}
+.detail-grid{
+  max-width: var(--container);
+  margin:0 auto;
+  padding: 0 var(--gutter);
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px,5vw,70px);
+  align-items:center;
+}
+/* Mobile / tablet: keep copy + lifestyle image side-by-side (compact),
+   with a smaller image, instead of stacking into a tall column. */
+@media (max-width: 860px){ .detail-grid{ grid-template-columns: 1.12fr 0.88fr; gap: 24px; } }
+
+.detail-copy p{ color: var(--ink-soft); font-size:1.05rem; max-width:48ch; margin-bottom:26px; }
+/* Small top margin gives the image breathing room instead of sitting
+   flush against the copy/hero above — a subtle editorial offset. */
+.detail-media{ border-radius: var(--radius-l); overflow:hidden; aspect-ratio: 4/5; margin-top: 28px; }
+.detail-media img{ width:100%; height:100%; object-fit:cover; }
+
+@media (max-width: 860px){ .detail-media{ margin-top: 0; } }
+@media (max-width: 640px){
+  .detail-grid{ gap: 16px; }
+  .detail-copy .eyebrow{ font-size: 0.66rem; padding-bottom: 8px; }
+  .detail-copy p{ font-size: 0.86rem; margin-bottom: 16px; margin-top: 18px !important; }
+  .detail-copy .btn{ padding: 11px 16px; font-size: 0.6rem; letter-spacing: 0.06em; white-space: normal; line-height: 1.25; }
+  .detail-media{ border-radius: var(--radius-m); }
+}
+
+.more-strip{ padding: clamp(50px,8vw,90px) 0; border-top: 1px solid var(--line); }
+.more-grid{
+  display:grid; grid-template-columns: repeat(3,1fr); gap: 22px;
+}
+@media (max-width: 780px){ .more-grid{ grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 640px){
+  .more-grid{ gap: 12px; }
+  .more-grid .card:last-child{ grid-column: span 2; max-width: 50%; margin: 0 auto; }
+}
+
+/* ---- view transitions ---- */
+@view-transition{ navigation: auto; }
+
+::view-transition-group(*){
+  animation-duration: var(--dur-l);
+  animation-timing-function: var(--ease);
+}
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration: var(--dur-m);
+  animation-timing-function: var(--ease);
+}
+
+.reveal{ opacity:0; transform: translateY(28px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+.reveal.is-visible{ opacity:1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ transition:none; opacity:1; transform:none; }
+}
